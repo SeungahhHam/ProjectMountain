@@ -64,6 +64,30 @@ router.post('/login', (req, res) => {
   })
 })
 
+//키워드 수정하기
+router.post('/modify', auth, (req, res) => {
+  console.log(req.body.keyword)
+  User.updateOne({email: req.user.email}, {$set: {keyword: req.body.keyword}}, function(error, docs){
+    if(error){
+        console.log(error);
+    }else{
+      res.send(docs)
+    }
+  })
+})
+
+//프로필 이미지 업데이트
+router.post('/updateImage', auth, (req, res) => {
+  console.log(req.body.userImage)
+  User.updateOne({$set: {userImage: req.body.userImage}}, function(error, docs){
+    if(error){
+        console.log(error);
+    }else{
+      res.send(docs)
+    }
+  })
+})
+
 router.post('/auth', auth, (req, res) => {
   //여기 까지 미들웨어를 통과해 왔다는 얘기는  Authentication 이 True 라는 말.
   res.status(200).json({
