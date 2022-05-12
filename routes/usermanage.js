@@ -108,14 +108,17 @@ router.post('/auth', auth, (req, res) => {
 
 router.post('/badgeInfo', auth, (req, res) => {
   //여기 까지 미들웨어를 통과해 왔다는 얘기는  Authentication 이 True 라는 말.
-  
+  console.log(req.user.badge.length)
   for (let i = 0; i < req.user.badge.length; i++) {     
 
     //리스트에서 뽑은 id가 지역별 collection에 있는지 확인
     for(let j = 0; j < 15; j++){
         Mount_loc_schema[j].find({ mntnid: req.user.badge[i]}, (err, docs) => {
             if (err) return res.status(500).send({error: 'failed'});
-            if(docs.length != 0) array = array.concat(docs);
+            if(docs.length != 0){
+              if(array.includes(docs.mntnid) != true)
+                array = array.concat(docs);
+            } 
         })
     }
     //마직막 지역별 collection에 있는지 확인 후 전송
