@@ -10,4 +10,4 @@ npm run-script kill
 
 #sudo npm install
 
-npm run-script dev
+#npm run-script dev
