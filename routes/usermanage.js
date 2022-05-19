@@ -7,7 +7,8 @@ const Commu = require('../model/community')
 const Commu_schema = [
   Commu.bordC,
   Commu.bordF,
-  Commu.bordQ
+  Commu.bordQ,
+  Commu.bordR
 ]
 const Mount = require('../model/Mountain.js')
 const Mount_loc_schema =
