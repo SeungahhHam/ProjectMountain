@@ -89,8 +89,15 @@ router.post('/delete', (req, res) => {
   })
 })
 //자유게시판 검색
-router.post('/search', (req, res) => {
+router.post('/search', auth, (req, res) => {
   bordR.find({ title: new RegExp('.*' + req.body.search + '.*')}, (err, docs) => {
+    if (err) return res.status(500).send({error: 'failed'});
+    else res.send(docs)
+  })
+})
+//모집게시판 조건
+router.post('/condition', (req, res) => {
+  bordR.find({"$and": [{ loc: new RegExp('.*' + req.body.loc + '.*')}, { num: new RegExp('.*' + req.body.num + '.*')}, { gender: new RegExp('.*' + req.body.gender + '.*')}]}, (err, docs) => {
     if (err) return res.status(500).send({error: 'failed'});
     else res.send(docs)
   })

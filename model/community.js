@@ -26,6 +26,15 @@ var communitySchema = new Schema({
     time: {
         type: String
     },
+    gender: {
+        type: String,
+    },
+    num: {
+        type: String,
+    },
+    loc: {
+        type: String
+    },
     _id: {
         type: String
     }
