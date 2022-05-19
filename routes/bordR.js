@@ -80,7 +80,7 @@ router.get('/list', (req, res) => {
   })
 })
 // 모집게시판 삭제
-router.post('/delete', (req, res) => {
+router.post('/delete', auth, (req, res) => {
   bordR.deleteOne({ _id: req.body._id }, function (error, result) {
     if (error) {
       console.log(error)
