@@ -180,7 +180,7 @@ router.post('/logout', auth, (req, res) => {
     , (err, user) => {
       if (err) return res.status(500).json({ success: false, err })
       return res.status(200).send({
-        success: true
+        logoutSuccess: true
       })
     })
 })
