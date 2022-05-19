@@ -1,3 +1,4 @@
+'use strict'
 const mountian_100_list = [
     '가리산',
     '가리왕산',
