@@ -29,6 +29,7 @@ const Mount_loc_schema =
   Mount.mountainGyeongnam,
   Mount.mountainJeju
 ]
+const map = require('../model/loc')
 
 router.post('/register', (req, res) => {
   // 회원 가입 할떄 필요한 정보들을  client에서 가져오면
