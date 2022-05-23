@@ -79,10 +79,10 @@ router.get('/list', (req, res) => {
 //모집게시판 삭제
 router.post('/delete', auth, (req, res) => {
   bordR.deleteOne({_id: req.body._id, nickname: req.user.nickname}, function(err, result){
-    if(error){
-        console.log(error);
+    if(err){
+        console.log(err);
     }else{
-      res.send({message: "delete success"})
+      res.send("delete success")
     }
   })
 })
