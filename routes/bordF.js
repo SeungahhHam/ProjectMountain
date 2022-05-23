@@ -84,7 +84,7 @@ router.post('/delete', auth, (req, res) => {
     if (error) {
       console.log(error)
     } else {
-      res.send('delete success')
+      res.send({message: 'delete success'})
     }
   })
 })
