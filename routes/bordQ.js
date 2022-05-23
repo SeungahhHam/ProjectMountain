@@ -80,7 +80,7 @@ router.get('/list', (req, res) => {
 })
 // 질문게시판 삭제
 router.post('/delete', auth, (req, res) => {
-  bordQ.deleteOne({ _id: req.body._id }, function (error, result) {
+  bordQ.deleteOne({ _id: req.body._id, nickname: req.user.nickname }, function (error, result) {
     if (error) {
       console.log(error)
     } else {
