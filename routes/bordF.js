@@ -48,7 +48,6 @@ router.post('/commentList', (req, res) => {
 })
 // 자유게시판 댓글 삭제
 router.post('/commentOut', (req, res) => {
-  bordF.deleteOne({ _id: req.body._id })
   bordF.updateOne({ _id: req.body._id }, { $pull: { comment: req.body.comment } }, function (error, docs) {
     if (error) {
       console.log(error)
@@ -81,7 +80,7 @@ router.get('/list', (req, res) => {
 })
 // 자유게시판 삭제
 router.post('/delete', auth, (req, res) => {
-  bordF.deleteOne({ _id: req.body._id }, function (error, result) {
+  bordF.deleteOne({ _id: req.body._id, nickname: req.user.nickname}, function (error, result) {
     if (error) {
       console.log(error)
     } else {
