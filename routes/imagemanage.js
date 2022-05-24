@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 const multerS3 = require('multer-s3')
-const s3 = require('../config/s3')
+const s3 = require('../s3')
 
 const storage = multerS3({
   s3,
