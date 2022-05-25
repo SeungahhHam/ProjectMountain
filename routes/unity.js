@@ -37,21 +37,23 @@ router.get('/add', (req, res) => {
   res.send('fin')
 })
 
-// 좌표 맏아서 업데이트
+// 좌표 받아서 업데이트
 router.post('/client', auth, (req, res) => {
   // 리스트에서 뽑은 id가 지역별 collection에 있는지 확인
   for (let j = 0; j < 16; j++) {
-    Mount_loc_schema[j].findOne({
-      $and: [{ x: { $gte: parseFloat(req.body.x) - 0.001, $lte: parseFloat(req.body.x) + 0.001 } },
-        { y: { $gte: parseFloat(req.body.y) - 0.001, $lte: parseFloat(req.body.y) + 0.001 } }]
-    }
-    , (err, docs) => {
+    Mount_loc_schema[j].collection.findOne({'x': {'$gte': parseFloat(req.body.x) - 0.0005, '$lte': parseFloat(req.body.x) + 0.0005}, 
+                                        'y': {'$gte': parseFloat(req.body.y) - 0.0005, '$lte': parseFloat(req.body.y) + 0.0005}},
+    (err, docs) => {
       if (err) console.log(err)
       if (docs != null) {
         // 산을 찾았을 경우 보낼 메세지 업데이트
         unity.collection.updateOne({ _id: 'unity' }, { $set: { mntnnm: docs.mntnnm } })
         // 산을 찾았을 경우 user 업데이트
         User.collection.updateOne({ email: req.user.email }, { $push: { badge: String(docs.mntnid) } })
+      }
+      if(docs == null) {
+        //산을 찾지 못했을 경우 보낼 메세지 업데이트
+        unity.collection.updateOne({ _id: 'unity' }, { $set: { mntnnm: "fail" } })
       }
     })
   }
@@ -60,12 +62,12 @@ router.post('/client', auth, (req, res) => {
     if (error) {
       console.log(error)
     } else {
-      if (result.badge.length + 1 <= 10) {
-        User.collection.updateOne({ email: req.user.email }, { $set: { level: 1, badgeProgress: (result.badge.length + 1) / 10 } })
-      } else if (result.badge.length + 1 <= 100) {
-        User.collection.updateOne({ email: req.user.email }, { $set: { level: 2, badgeProgress: (result.badge.length + 1) / 100 } })
-      } else if (result.badge.length + 1 <= 1000) {
-        User.collection.updateOne({ email: req.user.email }, { $set: { level: 3, badgeProgress: (result.badge.length + 1) / 1000 } })
+      if (result.badge.length<= 10) {
+        User.collection.updateOne({ email: req.user.email }, { $set: { level: 1, badgeProgress: (result.badge.length) / 10 } })
+      } else if (result.badge.length<= 100) {
+        User.collection.updateOne({ email: req.user.email }, { $set: { level: 2, badgeProgress: (result.badge.length) / 100 } })
+      } else if (result.badge.length<= 1000) {
+        User.collection.updateOne({ email: req.user.email }, { $set: { level: 3, badgeProgress: (result.badge.length) / 1000 } })
       }
     }
   })
