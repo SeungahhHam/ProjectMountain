@@ -18,6 +18,12 @@ const mountainschema = new Schema({
   },
   mntnattchimageseq: {
     type: String
+  },
+  x: {
+    type: Number
+  },
+  y: {
+    type: Number
   }
 })
 
