@@ -47,7 +47,6 @@ router.post('/commentList', (req, res) => {
 })
 //모집게시판 댓글 삭제
 router.post('/commentOut', (req, res) => {
-  const bord = new bordF(req.body)
   bordR.updateOne({_id: req.body._id}, {$pull: {comment: req.body.comment}}, function(error, docs){
     if(error){
         console.log(error);
@@ -76,13 +75,13 @@ router.get('/list', (req, res) => {
     }
   })
 })
-//모집게시판 삭제
+// 모집게시판 삭제
 router.post('/delete', auth, (req, res) => {
-  bordR.deleteOne({_id: req.body._id, nickname: req.user.nickname}, function(err, result){
-    if(err){
-        console.log(err);
-    }else{
-      res.send("delete success")
+  bordR.deleteOne({ _id: req.body._id, nickname: req.user.nickname}, function (error, result) {
+    if (error) {
+      console.log(error)
+    } else {
+      res.send({message: 'delete success'})
     }
   })
 })
