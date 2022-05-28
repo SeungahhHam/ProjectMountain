@@ -50,11 +50,6 @@ router.post('/client', auth, (req, res) => {
         unity.collection.updateOne({ _id: 'unity' }, { $set: { mntnnm: docs.mntnnm } })
         // 산을 찾았을 경우 user 업데이트
         User.collection.updateOne({ email: req.user.email }, { $push: { badge: String(docs.mntnid) } })
-        return
-      }
-      if(docs == null) {
-        //산을 찾지 못했을 경우 보낼 메세지 업데이트
-        unity.collection.updateOne({ _id: 'unity' }, { $set: { mntnnm: "fail" } })
       }
     })
   }
