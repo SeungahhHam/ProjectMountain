@@ -41,8 +41,8 @@ router.get('/add', (req, res) => {
 router.post('/client', auth, (req, res) => {
   // 리스트에서 뽑은 id가 지역별 collection에 있는지 확인
   for (let j = 0; j < 16; j++) {
-    Mount_loc_schema[j].collection.findOne({'x': {'$gte': parseFloat(req.body.x) - 0.0005, '$lte': parseFloat(req.body.x) + 0.0005}, 
-                                        'y': {'$gte': parseFloat(req.body.y) - 0.0005, '$lte': parseFloat(req.body.y) + 0.0005}},
+    Mount_loc_schema[j].collection.findOne({'x': {'$gte': parseFloat(req.body.x) - 0.01, '$lte': parseFloat(req.body.x) + 0.01}, 
+                                        'y': {'$gte': parseFloat(req.body.y) - 0.01, '$lte': parseFloat(req.body.y) + 0.01}},
     (err, docs) => {
       if (err) console.log(err)
       if (docs != null) {
